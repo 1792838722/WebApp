@@ -32,9 +32,10 @@ class Upload(View):
                     write_destination.write(chunks)
         raw_img = Image.open(os.path.join(img_path, my_file.name))
         new_img = raw_img.rotate(90)
-        new_img.save(os.path.join(img_path, my_file.name.replace('.', 'new.')))
-        photo = Photo.objects.create(title=my_file.name.replace('.', 'new.'))
-        photo.my_file.name = os.path.join('img', get_time(), my_file.name.replace('.', 'new.'))
+        new_img_name = my_file.name.replace('.', 'new.')
+        new_img.save(os.path.join(img_path, new_img_name))
+        photo = Photo.objects.create(title=new_img_name)
+        photo.my_file.name = os.path.join('img', get_time(), new_img_name)
         photo.save()
         return redirect('index')
 

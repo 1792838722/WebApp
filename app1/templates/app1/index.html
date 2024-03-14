@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>index</title>
+</head>
+<body>
+    {% load static %}
+    <img src="{% static 'app1/img/1.jpg' %}">
+    <ul>
+    {% for elem in contents %}
+        <li>
+            <h1>contents</h1>
+            <h3>{{ elem.title }}</h3>
+            <b>{{ elem.price }}</b>
+        </li>
+    {% endfor %}
+    </ul>
+    <ul>
+    {% for elem in test %}
+        <li>
+            <h1>test</h1>
+            <h3>{{ elem.title }}</h3>
+            <b>{{ elem.price }}</b>
+        </li>
+    {% endfor %}
+    </ul>
+    <ul>
+    {% for elem in img %}
+        <li>
+            <img src="{{ MEDIA_URL }}img/{{ elem }}">
+        </li>
+    {% endfor %}
+    </ul>
+<a href="/app1/upload">upload</a>
+</body>

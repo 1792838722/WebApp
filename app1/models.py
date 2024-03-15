@@ -11,7 +11,12 @@ from django.contrib.staticfiles.storage import staticfiles_storage
 class Photo(models.Model):
     title = models.CharField(max_length=1000)
     date = models.DateField(auto_now_add=True)
-    my_file = models.ImageField(default='null',
+
+    raw_image = models.ImageField(default='null',
+                                upload_to=os.path.join('img', get_time()),
+                                validators=[validate_file_extension])
+
+    new_image = models.ImageField(default='null',
                                 upload_to=os.path.join('img', get_time()),
                                 validators=[validate_file_extension])
 

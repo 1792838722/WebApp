@@ -8,11 +8,17 @@
     {% load static %}
     <img src="{% static 'app1/img/1.jpg' %}">
     <ul>
-    {% for elem in img_path %}
+        {% for img in raw_img_path %}
         <li>
-            <img src="{{ MEDIA_URL }}{{ elem }}">
+            <img src="{{ MEDIA_URL }}{{ img }}">
+        </li>
+        {% endfor %}
+
+        {% for img in new_img_path %}
+        <li>
+            <img src="{{ MEDIA_URL }}{{ img }}">
         </li>
     {% endfor %}
     </ul>
-<a href="/app1/upload">upload</a>
+    <a href="/app1/upload">upload</a>
 </body>

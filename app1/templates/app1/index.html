@@ -8,9 +8,9 @@
     {% load static %}
     <img src="{% static 'app1/img/1.jpg' %}">
     <ul>
-    {% for elem in img %}
+    {% for elem in img_path %}
         <li>
-            <img src="{{ MEDIA_URL }}img/{{ elem }}">
+            <img src="{{ MEDIA_URL }}{{ elem }}">
         </li>
     {% endfor %}
     </ul>

@@ -11,7 +11,10 @@ from django.views import View
 
 class Index(View):
     def get(self, request):
-        value = {'img': Photo.objects.all()} # 修复模板问题
+        img_path = []
+        for each_img in Photo.objects.all().values():
+            img_path.append(each_img['my_file'])
+        value = {'img_path': img_path}
         return render(request, 'app1/index.html', context=value)
         # context 以字典赋值，无法遍历 context 本身
 

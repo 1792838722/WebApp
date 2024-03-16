@@ -12,6 +12,7 @@ class Index(View):
         for each_img in Photo.objects.all().values():
             raw_img_path.append(each_img['raw_image'])
             new_img_path.append(each_img['new_image'])
+            # 前端图片展示待修改
         value = {'raw_img_path': raw_img_path, 'new_img_path': new_img_path}
         return render(request, 'app1/index.html', context=value)
         # context 以字典赋值，无法遍历 context 本身
@@ -31,7 +32,7 @@ class Upload(View):
         if upload_image:
             with open(os.path.join(img_folder, upload_image.name), 'wb+') as write_destination:
                 for chunks in upload_image.chunks():
-                    write_destination.write(chunks)
+                    write_destination.write(chunks)   # 待修改，同名文件添加随机后缀
         # 保存图片
 
         raw_img = Image.open(os.path.join(img_folder, upload_image.name))

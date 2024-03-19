@@ -1,7 +1,13 @@
+import os.path
+import random
+import string
+
 from PIL import Image
 from django.shortcuts import render, redirect
 from .models import *
 from django.views import View
+
+
 # Create your views here.
 
 
@@ -29,21 +35,29 @@ class Upload(View):
         # 在 /resource 中不重复地创建文件夹
 
         upload_image = request.FILES.get('upload_file')
+        upload_image_name = upload_image.name
+        if os.path.exists(os.path.join(img_folder, upload_image_name)):
+            upload_image_name = upload_image_name.replace('.',
+                                                          '_' +
+                                                          ''.join(random.SystemRandom().choice(
+                                                              string.ascii_letters + string.digits)
+                                                              for _ in range(8))
+                                                          + '.')
+
         if upload_image:
-            with open(os.path.join(img_folder, upload_image.name), 'wb+') as write_destination:
+            with open(os.path.join(img_folder, upload_image_name), 'wb+') as write_destination:
                 for chunks in upload_image.chunks():
-                    write_destination.write(chunks)   # 待修改，同名文件添加随机后缀
+                    write_destination.write(chunks)
         # 保存图片
 
-        raw_img = Image.open(os.path.join(img_folder, upload_image.name))
+        raw_img = Image.open(os.path.join(img_folder, upload_image_name))
         new_img = raw_img.rotate(90)
-        new_img_name = upload_image.name.replace('.', 'new.')
+        new_img_name = upload_image_name.replace('.', '_new.')
         new_img.save(os.path.join(img_folder, new_img_name))
         # 文件处理及重命名
 
-        photo = Photo.objects.create(title=upload_image.name)
-        photo.raw_image.name = os.path.join('img', get_time(), upload_image.name)
+        photo = Photo.objects.create(title=upload_image_name)
+        photo.raw_image.name = os.path.join('img', get_time(), upload_image_name)
         photo.new_image.name = os.path.join('img', get_time(), new_img_name)
         photo.save()
         return redirect('index')
-

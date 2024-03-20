@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>search</title>
+</head>
+<body>
+    {% load static %}
+    <form action="{% url 'search' %}">
+        <input type="text" name="tags">
+        <input type="submit" name="submit">
+    </form>
+    {% if img_path %}
+    <ul>
+        {% for each_img in img_path %}
+        <li>
+            <img src="{{ MEDIA_URL }}{{ each_img }}">
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <a href="index">back</a>
+</body>

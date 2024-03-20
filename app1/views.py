@@ -1,7 +1,6 @@
 import os.path
 import random
 import string
-
 from PIL import Image
 from django.shortcuts import render, redirect
 from .models import *
@@ -13,13 +12,12 @@ from django.views import View
 
 class Index(View):
     def get(self, request):
-        raw_img_path = []
-        new_img_path = []
+        img_path = []
         for each_img in Photo.objects.all().values():
-            raw_img_path.append(each_img['raw_image'])
-            new_img_path.append(each_img['new_image'])
-            # 前端图片展示待修改
-        value = {'raw_img_path': raw_img_path, 'new_img_path': new_img_path}
+            img_path.append(each_img['raw_image'])
+            img_path.append(each_img['new_image'])
+            # 交叉插入,待优化
+        value = {'img_path': img_path}
         return render(request, 'app1/index.html', context=value)
         # context 以字典赋值，无法遍历 context 本身
 
@@ -56,8 +54,25 @@ class Upload(View):
         new_img.save(os.path.join(img_folder, new_img_name))
         # 文件处理及重命名
 
-        photo = Photo.objects.create(title=upload_image_name)
+        photo = Photo.objects.create(title=upload_image_name[:upload_image_name.find('.')],
+                                     extension=upload_image_name[upload_image_name.find('.'):])
         photo.raw_image.name = os.path.join('img', get_time(), upload_image_name)
         photo.new_image.name = os.path.join('img', get_time(), new_img_name)
         photo.save()
         return redirect('index')
+
+
+class Search(View):
+    def get(self, request):
+        if not request.GET:
+            return render(request, 'app1/search.html')
+        tags = request.GET['tags']
+        print(tags)
+        img_path = []
+        for each_img in Photo.objects.filter(title=tags).values():
+            img_path.append(each_img['raw_image'])
+            img_path.append(each_img['new_image'])
+            # 交叉插入,待优化
+        value = {'img_path': img_path}
+        # 模糊搜索待添加
+        return render(request, 'app1/search.html', context=value)

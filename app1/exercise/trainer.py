@@ -2,7 +2,7 @@ import os
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from demo import UNet
+from .demo import UNet
 from collections import OrderedDict
 
 
@@ -47,7 +47,7 @@ class Trainer(nn.Module):
             print('----------load model-------------')
 
             # dir = r"/home/user/data/lost+found/unet/300_net.pth"
-            dir = r"C:/Users/17928/Desktop/exercise/520_net.pth"
+            dir = r"/home/byte/PycharmProjects/website/chart/app1/exercise/520_net.pth"
             self.net.load_state_dict(torch.load(dir), strict=False)
 
     def feed_data(self, data):

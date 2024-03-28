@@ -6,11 +6,10 @@
 </head>
 <body>
     {% load static %}
-    <img src="{% static 'app1/img/1.jpg' %}">
     <ul>
         {% for each_img in img_path %}
         <li>
-            <img src="{{ MEDIA_URL }}{{ each_img }}" alt="image">
+            <img src="{{ MEDIA_URL }}{{ each_img }}">
         </li>
         {% endfor %}
     </ul>

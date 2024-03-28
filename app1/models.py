@@ -9,19 +9,20 @@ from django.contrib.staticfiles.storage import staticfiles_storage
 
 # Create your models here.
 
+def upload_to(instance, filename):
+    return os.path.join('patient', get_time(), instance.name, instance.name)
 
-class Photo(models.Model):
-    title = models.CharField(max_length=1000)
-    extension = models.CharField(max_length=7)
+
+class Medical(models.Model):
+    name = models.CharField(max_length=1000)
     date = models.DateField(auto_now_add=True)
 
-    raw_image = models.ImageField(default='null',
-                                  upload_to=os.path.join('img', get_time()),
-                                  validators=[validate_file_extension])
+    raw_file = models.FileField(default='null',
+                                upload_to=upload_to)
 
-    new_image = models.ImageField(default='null',
-                                  upload_to=os.path.join('img', get_time()),
-                                  validators=[validate_file_extension])
+    pre_img = models.ImageField(default='null')
+
+    tar_img = models.ImageField(default='null')
 
     def __str__(self):
-        return f'{self.title}'
+        return f'{self.name}'

@@ -7,7 +7,7 @@
 <body>
     <form action="{% url 'upload' %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        <input type="file" name="upload_file" accept=".jpg, .png, .jpeg">
+        <input type="file" name="upload_file" accept=".npz">
         <input type="submit" name="submit">
     </form>
 </body>

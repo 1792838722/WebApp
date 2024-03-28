@@ -5,14 +5,14 @@ import time
 # import torch.nn.functional as F
 import torch
 import numpy as np
-from trainer import Trainer
-from Visualize import Visualizer
-from datasets_npz import TrainDataset
+from .trainer import Trainer
+# from Visualize import Visualizer
+from .datasets_npz import TrainDataset
 from torch.autograd import Variable
 from collections import OrderedDict
 # from dwt import IWT
 # from train_ab import Metric
-from save import save_one
+from .save import save_one
 # from save import save_one_as_jpg
 from torch.utils.data import DataLoader
 
@@ -25,28 +25,31 @@ def back(x):
     return x / 2 + 0.5
 
 
-if __name__ == '__main__':
-
+def generate_mha(folder_path):
     param = OrderedDict()
     # os.environ['CUDA_VISIBLE_DEVICES'] = '
     param['gpu_ids'] = [0]
-    vis = Visualizer('test150')
-    path = r"D:/data/out"
+    # vis = Visualizer('test150')
+    path = folder_path
+    # path = r"/home/byte/PycharmProjects/website/chart/resource/"
     # path = r"/home/user/data/lost+found/mha/UNET"
     # 检验路径
-    if not os.path.exists(path):
-        os.makedirs(path)
+    # if not os.path.exists(path):
+        # os.makedirs(path)
     # 设置GPU的可用
     torch.backends.cudnn.enabled = True
     torch.backends.cudnn.benchmark = True
 
     model = Trainer(gpu_ids=param['gpu_ids'], is_Train=True, continue_train=True)
     # model.load_state_dict(torch.load(r"/home/user/data/lost+found/unet/520_net.pth"))
-    batch = 4  # dataloader的bs是1 但是由于数据是3D的 取出来时是1 1 185 6 512 512（其中第二个1是dataloader是人为误操作） 我们人工设置batch=2得到2 6 512 512（其中2是依次取到185）来达到2D输入网络
+    batch = 4  # dataloader的bs是1 但是由于数据是3D的 取出来时是1 1 185 6 512 512（其中第二个1是dataloader是人为误操作）
+    # 我们人工设置batch=2得到2 6 512 512（其中2是依次取到185）来达到2D输入网络
+
     # 测试集合的路径
     # dir = r"/home/user/data/lost+found/lab_dataset/rectum333_npz/test"
-    dir = r"D:/data/source"
-    Syn_test = TrainDataset(dir)
+    # dir = r"/home/byte/PycharmProjects/website/chart/resource/"
+    test_dir = folder_path
+    Syn_test = TrainDataset(test_dir)
 
     trainData = DataLoader(dataset=Syn_test, batch_size=1, shuffle=False, drop_last=True, num_workers=1)
     # print(len(trainData))

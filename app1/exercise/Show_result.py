@@ -3,6 +3,7 @@ import SimpleITK as sitk
 import matplotlib.pyplot as plt
 import itk
 from PIL import Image
+import os
 
 # 输入为两个二进制图像的numpy数组
 def dice_coefficient(seg_pred, seg_gt):
@@ -40,15 +41,18 @@ def transfrom_format(file_path):
     slice_image = image_array[slice_index, :, :]
     # 转换为PIL图像并保存为JPEG文件
     pil_image = Image.fromarray(slice_image.astype(np.uint8))
-    output_jpeg_path = "D:/data/out/baoyongyuan_pre.jpg"
+    output_jpeg_path = "/home/byte/PycharmProjects/website/chart/resource/baoyongyuan_pre.jpg"
     pil_image.save(output_jpeg_path)
 
 
-if __name__ == '__main__':
+def generate_img(folder_path, patient_name):
     # 读取.mha文件
     # image = sitk.ReadImage("/home/user/data/lost+found/mha/caidaiping_tar.mha")
-    image_pre = sitk.ReadImage("D:/data/out/baoyongyuan_pre.mha")
-    image_tar = sitk.ReadImage("D:/data/out/baoyongyuan_tar.mha")
+    # image_pre = sitk.ReadImage("/home/byte/PycharmProjects/website/chart/resource/baoyongyuan_pre.mha")
+    # image_tar = sitk.ReadImage("/home/byte/PycharmProjects/website/chart/resource/baoyongyuan_tar.mha")
+    image_pre = sitk.ReadImage(str(os.path.join(folder_path, patient_name + '_pre.mha')))
+    image_tar = sitk.ReadImage(str(os.path.join(folder_path, patient_name + '_tar.mha')))
+
     # 将SimpleITK图像对象转换为NumPy数组
     image_pre_array = sitk.GetArrayFromImage(image_pre)
     image_tar_array = sitk.GetArrayFromImage(image_tar)
@@ -78,13 +82,13 @@ if __name__ == '__main__':
     plt.imshow(pre, cmap='gray')
     plt.title('Predicted Image')
     plt.axis('off')
-    plt.savefig('D:/data/out/baoyongyuan_pre.png')
+    plt.savefig(os.path.join(folder_path, patient_name + '_pre.png'))
     plt.close()
     # 在第二个子图中显示并存储目标图像
     plt.imshow(tar, cmap='gray')
     plt.title('Target Image')
     plt.axis('off')
-    plt.savefig('D:/data/out/baoyongyuan_tar.png')
+    plt.savefig(os.path.join(folder_path, patient_name + '_tar.png'))
     plt.close()
 
     # 显示图像

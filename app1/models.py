@@ -17,8 +17,7 @@ class Medical(models.Model):
     name = models.CharField(max_length=1000)
     date = models.DateField(auto_now_add=True)
 
-    raw_file = models.FileField(default='null',
-                                upload_to=upload_to)
+    raw_file = models.FileField(default='null', upload_to=upload_to)
 
     pre_img = models.ImageField(default='null')
 

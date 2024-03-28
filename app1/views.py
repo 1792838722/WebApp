@@ -1,5 +1,4 @@
 import os.path
-# import random
 from django.shortcuts import render, redirect
 from .models import *
 from django.views import View
@@ -12,9 +11,9 @@ from .exercise import Show_result
 class Index(View):
     def get(self, request):
         img_path = []
-        for each_img in Medical.objects.all().values():
-            img_path.append(each_img['pre_img'])
-            img_path.append(each_img['tar_img'])
+        for each_img in Medical.objects.all():
+            img_path.append(each_img.pre_img.url)
+            img_path.append(each_img.tar_img.url)
             # 交叉插入,待优化
         value = {'img_path': img_path}
         return render(request, 'app1/index.html', context=value)
@@ -62,10 +61,27 @@ class Search(View):
         tags = request.GET['tags']
         # print(tags)
         img_path = []
-        for each_img in Medical.objects.filter(name=tags).values():
-            img_path.append(each_img['pre_img'])
-            img_path.append(each_img['tar_img'])
+        for each_img in Medical.objects.filter(name=tags):
+            img_path.append(each_img.pre_img.url)
+            img_path.append(each_img.tar_img.url)
             # 交叉插入,待优化
         value = {'img_path': img_path}
         # 模糊搜索待添加
         return render(request, 'app1/search.html', context=value)
+
+
+class History(View):
+    def get(self, request):
+        names_and_date = Medical.objects.values_list('name', 'date')
+        value = {'names_and_date': list(names_and_date)}
+        return render(request, 'app1/history.html', context=value)
+
+
+class Detail(View):
+    def get(self, request):
+        patient_name = request.path_info[(request.path_info.rfind('/') + 1):]
+        patient = Medical.objects.filter(name=patient_name)
+        value = {'patient': [patient[0].pre_img.url, patient[0].tar_img.url]}
+        return render(request, 'app1/detail.html', context=value)
+    # 重复性，url待修改
+    # 搜索多个待修改

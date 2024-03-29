@@ -1,11 +1,9 @@
 import os.path
-import random
-import string
-from PIL import Image
 from django.shortcuts import render, redirect
 from .models import *
 from django.views import View
-
+from .exercise import test_out
+from .exercise import Show_result
 
 # Create your views here.
 
@@ -13,9 +11,9 @@ from django.views import View
 class Index(View):
     def get(self, request):
         img_path = []
-        for each_img in Photo.objects.all().values():
-            img_path.append(each_img['raw_image'])
-            img_path.append(each_img['new_image'])
+        for each_img in Medical.objects.all():
+            img_path.append(each_img.pre_img.url)
+            img_path.append(each_img.tar_img.url)
             # 交叉插入,待优化
         value = {'img_path': img_path}
         return render(request, 'app1/index.html', context=value)
@@ -27,38 +25,32 @@ class Upload(View):
         return render(request, 'app1/upload.html')
 
     def post(self, request):
-        img_folder = os.path.join('resource', 'img', get_time())
-        if not os.path.exists(img_folder):
-            os.mkdir(img_folder)
-        # 在 /resource 中不重复地创建文件夹
+        upload_file = request.FILES.get('upload_file')
 
-        upload_image = request.FILES.get('upload_file')
-        upload_image_name = upload_image.name
-        if os.path.exists(os.path.join(img_folder, upload_image_name)):
-            upload_image_name = upload_image_name.replace('.',
-                                                          '_' +
-                                                          ''.join(random.SystemRandom().choice(
-                                                              string.ascii_letters + string.digits)
-                                                              for _ in range(8))
-                                                          + '.')
+        upload_file_name = upload_file.name
+        patient_name = upload_file_name[:upload_file_name.find('.')]
+        file_folder_path = os.path.join('resource', 'patient', get_time(), patient_name)
+        if not os.path.exists(file_folder_path):
+            os.makedirs(file_folder_path)
+        # 在 /resource 中不重复地创建文件夹 /patient /{{ time }} /{{ patient_name }}
 
-        if upload_image:
-            with open(os.path.join(img_folder, upload_image_name), 'wb+') as write_destination:
-                for chunks in upload_image.chunks():
-                    write_destination.write(chunks)
-        # 保存图片
+        if os.path.exists(os.path.join(file_folder_path, upload_file_name)):
+            return redirect('index')  # 文件已存在，跳过
+            # upload_image_name = upload_image_name.replace('.',
+            # '_' +
+            # ''.join(random.SystemRandom().choice(
+            # string.ascii_letters + string.digits)
+            # for _ in range(8))
+            # + '.')
 
-        raw_img = Image.open(os.path.join(img_folder, upload_image_name))
-        new_img = raw_img.rotate(90)
-        new_img_name = upload_image_name.replace('.', '_new.')
-        new_img.save(os.path.join(img_folder, new_img_name))
+        patient = Medical.objects.create(name=patient_name, raw_file=upload_file)
+        test_out.generate_mha(file_folder_path)
+        Show_result.generate_img(folder_path=file_folder_path, patient_name=patient_name)
         # 文件处理及重命名
 
-        photo = Photo.objects.create(title=upload_image_name[:upload_image_name.find('.')],
-                                     extension=upload_image_name[upload_image_name.find('.'):])
-        photo.raw_image.name = os.path.join('img', get_time(), upload_image_name)
-        photo.new_image.name = os.path.join('img', get_time(), new_img_name)
-        photo.save()
+        patient.pre_img.name = os.path.join('patient', get_time(), patient_name, patient_name + '_pre.png')
+        patient.tar_img.name = os.path.join('patient', get_time(), patient_name, patient_name + '_tar.png')
+        patient.save()
         return redirect('index')
 
 
@@ -67,12 +59,29 @@ class Search(View):
         if not request.GET:
             return render(request, 'app1/search.html')
         tags = request.GET['tags']
-        print(tags)
+        # print(tags)
         img_path = []
-        for each_img in Photo.objects.filter(title=tags).values():
-            img_path.append(each_img['raw_image'])
-            img_path.append(each_img['new_image'])
+        for each_img in Medical.objects.filter(name=tags):
+            img_path.append(each_img.pre_img.url)
+            img_path.append(each_img.tar_img.url)
             # 交叉插入,待优化
         value = {'img_path': img_path}
         # 模糊搜索待添加
         return render(request, 'app1/search.html', context=value)
+
+
+class History(View):
+    def get(self, request):
+        names_and_date = Medical.objects.values_list('name', 'date')
+        value = {'names_and_date': list(names_and_date)}
+        return render(request, 'app1/history.html', context=value)
+
+
+class Detail(View):
+    def get(self, request):
+        patient_name = request.path_info[(request.path_info.rfind('/') + 1):]
+        patient = Medical.objects.filter(name=patient_name)
+        value = {'patient': [patient[0].pre_img.url, patient[0].tar_img.url]}
+        return render(request, 'app1/detail.html', context=value)
+    # 重复性，url待修改
+    # 搜索多个待修改

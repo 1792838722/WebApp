@@ -21,9 +21,8 @@ from django.conf import settings
 from . import views
 
 urlpatterns = [
-    path('', views.Index.as_view()),
     path('admin/', admin.site.urls),
-    path('app1/', include('app1.urls')),  # 引入子路由表
+    path('', include('app1.urls')),  # 引入子路由表
     re_path(r'resource/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT})
     # display media documents
 ]

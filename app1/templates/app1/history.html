@@ -10,7 +10,7 @@
         <li>
             <h3>{{ each_patient.0 }}</h3>
             {{ each_patient.1 }}
-            <a href="history/{{ each_patient.0}} ">detail</a>
+            <a href="history/{{ each_patient.0}}_{{each_patient.1}} ">detail</a>
         </li>
         {% endfor %}
     </ul>

@@ -30,12 +30,12 @@ class Upload(View):
         upload_file_name = upload_file.name
         patient_name = upload_file_name[:upload_file_name.find('.')]
         file_folder_path = os.path.join('resource', 'patient', get_time(), patient_name)
+        if os.path.exists(os.path.join(file_folder_path, patient_name)):
+            return redirect('index')# 文件已存在，跳过
+
         if not os.path.exists(file_folder_path):
             os.makedirs(file_folder_path)
         # 在 /resource 中不重复地创建文件夹 /patient /{{ time }} /{{ patient_name }}
-
-        if os.path.exists(os.path.join(file_folder_path, upload_file_name)):
-            return redirect('index')  # 文件已存在，跳过
             # upload_image_name = upload_image_name.replace('.',
             # '_' +
             # ''.join(random.SystemRandom().choice(
@@ -79,7 +79,7 @@ class History(View):
 
 class Detail(View):
     def get(self, request):
-        patient_name = request.path_info[(request.path_info.rfind('/') + 1):]
+        patient_name = request.path_info[(request.path_info.rfind('/') + 1):request.path_info.rfind('_')]
         patient = Medical.objects.filter(name=patient_name)
         value = {'patient': [patient[0].pre_img.url, patient[0].tar_img.url]}
         return render(request, 'app1/detail.html', context=value)

@@ -1,0 +1,131 @@
+* {
+    list-style: none;
+}
+
+.wrapper {
+    margin: 0 auto;
+    width: 1200px;
+
+
+}
+.body {
+    background-image: url("/static/app1/img/4.png");
+    background-position: 900px 220px;
+    background-color: rgb(79, 150, 194);
+    background-repeat: no-repeat;
+    height: 700px;
+}
+.bottom {
+    background-color: #f3f5f7;
+    height: 200px;
+}
+
+.title {
+    background-color: rgb(242, 245, 248);
+    height: 92px;
+}
+.title .wrapper {
+    /* padding-top: 29px; */
+    display: flex;
+}
+
+.logo  a {
+    
+    font-size: 0;
+    background-image: url('{% static "app1/img/SCU_logo.png" %}');
+    width: 92px;
+    height: 92px;
+    display: block;
+    padding-top: auto;
+}
+
+.ngv ul {
+    display: flex;
+    padding-top: 40px;
+    font-size: 25px;
+    font-family: 楷体;
+    margin-left: 200px;
+}
+.ngv ul  li {   
+    margin-right: 60px;
+}
+.ngv ul li a {
+    display: block;
+    padding: 0 7px;
+    line-height: 17px;
+} 
+
+.ngv li a:hover {
+    border-bottom: 2px solid #3f75ab;
+}
+
+.shape1 {
+    font-size: 60px;
+    font-weight: 70px;
+    font-family: 仿宋;
+    padding: 20px 0;
+    font-style: italic;
+}
+.shape2 {
+    font-size: 60px;
+    font-weight: 70px;
+    font-family: 仿宋;
+    /* padding: 10px; */
+    font-style: italic;
+    color: rgb(229, 235, 230);
+    padding-left: 600px;
+}
+.shape3 {
+    font-size: 30px;
+    font-weight: 70px;
+    font-family: 仿宋;
+    color: rgb(139, 63, 141);
+    padding-left: 200px;
+}
+
+.shape4 h3 {
+    font-size: 30px;
+    font-weight: 70px;
+    font-family: 楷体;
+    padding-left: 50px;
+}
+.shape4 li {
+    font-size: 30px;
+    font-weight: 70px;
+    font-family: 楷体;
+    padding-left: 70px;
+}
+
+/* bottom */
+.bottom {
+    /* margin-top: 10px; */
+    padding-top: 0px;
+    height: 123px;
+    background-color: #333333;
+}
+.bottom .wrapper {
+    display: flex;
+    justify-content: space-between;
+ 
+
+}
+
+.bottom .center {
+    display: inline-block;
+}
+
+.bottom .left h2 {
+
+    padding: 5px;
+    font-family: 仿宋;
+    font-style: italic;
+    font-weight: 40px;
+    color: #7ec0dc;
+}
+.bottom  p {
+    padding-top: 10px;
+    font-family: 仿宋;
+    font-style: italic;
+    padding: 4px;
+    color: aquamarine;
+}

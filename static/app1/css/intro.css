@@ -1,0 +1,53 @@
+
+  /* 正式开始设置界面的样式 */
+.part {
+  background-color: #fff;
+  background-image: url("/static/app1/img/background.webp");
+}
+
+.part a {
+display: block;
+font-size: 50px;
+font-weight: 70px;
+font-family: 楷体;
+background-color: #e7edeac7;
+
+margin: 0px 20px 0px 20px;
+
+}
+
+.line {
+  display: flex;
+  font-size: 0px;
+  height: 2px;
+  background-color: rgb(88, 172, 220);
+}
+h2 {
+  font-size: 30px;
+  margin: 20px 20px 20px 0;
+  font-family: 仿宋;
+  font-weight: 70px;
+}
+
+h3 {
+  font-size: 20px;
+  font-family: 仿宋;
+  font-weight: 70px;
+  margin: 20px 20px 20px 50px;
+}
+p {
+  font-family: 楷体;
+  font-size: 20px;
+  font-weight: 70px;
+  margin-left: 20px;
+}
+
+.bottom {
+  background-color: #fff;
+  height: 40px;
+  text-align: right;
+  line-height: 40px;
+  padding-right: 20px;
+  font-weight: 70px;
+  font-style: italic;
+}

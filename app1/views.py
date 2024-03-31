@@ -5,6 +5,7 @@ from django.views import View
 from .exercise import test_out
 from .exercise import Show_result
 
+
 # Create your views here.
 
 
@@ -20,9 +21,9 @@ class Index(View):
         # context 以字典赋值，无法遍历 context 本身
 
 
-class Upload(View):
+class Predict(View):
     def get(self, request):
-        return render(request, 'app1/upload.html')
+        return render(request, 'app1/predict.html')
 
     def post(self, request):
         upload_file = request.FILES.get('upload_file')
@@ -31,17 +32,17 @@ class Upload(View):
         patient_name = upload_file_name[:upload_file_name.find('.')]
         file_folder_path = os.path.join('resource', 'patient', get_time(), patient_name)
         if os.path.exists(os.path.join(file_folder_path, patient_name)):
-            return redirect('index')# 文件已存在，跳过
+            return redirect('index')  # 文件已存在，跳过
 
         if not os.path.exists(file_folder_path):
             os.makedirs(file_folder_path)
         # 在 /resource 中不重复地创建文件夹 /patient /{{ time }} /{{ patient_name }}
-            # upload_image_name = upload_image_name.replace('.',
-            # '_' +
-            # ''.join(random.SystemRandom().choice(
-            # string.ascii_letters + string.digits)
-            # for _ in range(8))
-            # + '.')
+        # upload_image_name = upload_image_name.replace('.',
+        # '_' +
+        # ''.join(random.SystemRandom().choice(
+        # string.ascii_letters + string.digits)
+        # for _ in range(8))
+        # + '.')
 
         patient = Medical.objects.create(name=patient_name, raw_file=upload_file)
         test_out.generate_mha(file_folder_path)
@@ -51,7 +52,12 @@ class Upload(View):
         patient.pre_img.name = os.path.join('patient', get_time(), patient_name, patient_name + '_pre.png')
         patient.tar_img.name = os.path.join('patient', get_time(), patient_name, patient_name + '_tar.png')
         patient.save()
-        return redirect('index')
+        return render(request, 'app1/predict.html')
+
+
+class Intro(View):
+    def get(self, request):
+        return render(request, 'app1/intro.html')
 
 
 class Search(View):

@@ -1,12 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
+{% load static %}
 <head>
     <meta charset="UTF-8">
-    <title>index</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIFFDP</title>
+    <link rel="stylesheet" href="static/app1/css/base.css">
+    <link rel="stylesheet" href="static/app1/css/index.css">
 </head>
 <body>
-    {% load static %}
-    <a href="{% url 'upload' %}">upload</a>
-    <a href="{% url 'search' %}">search</a>
-    <a href="{% url 'history' %}">history</a>
+    <!-- 头部区域 -->
+    <div class="title">
+        <div class="wrapper">
+            <div class="logo">
+                <h1>
+                    <a href="#">四川大学</a>
+                </h1>
+            </div>
+
+            <div class="ngv">
+                <ul>
+                    <li>
+                        <a href="{% url 'index' %}" class="active">首页</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'intro' %}">疾病介绍</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'predict' %}">剂量图生成</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'history' %}">历史查询记录</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="search">
+
+            </div>
+        </div>
+    </div>
+    <!-- 核心区域 -->
+    <div class="body">
+        <div class="shape1">你是否需要精准的剂量方案???</div>
+        <div class="shape2">---------你是否饱受放疗计划的困扰???</div>
+        <div class="shape3">结合人工智能和医学影像的技术---DIFFDP，它来了</div>
+
+        <div class="shape4">
+            <h3>面向患者</h3>
+            <ul>
+                <li>保障更多的女性健康安全</li>
+                <li>让患者更安心</li>
+            </ul>
+
+        </div>
+        <div class="shape4">
+            <h3>面向医师</h3>
+            <ul>
+                <li>降低失误率以及药物对于身体的损坏</li>
+                <li>为患者提供更好的方案</li>
+            </ul>
+        </div>
+        <div style="position: relative;">
+            <img src="static/app1/img/dosimetry.png" alt="剂量学规则" style="position: absolute; top: 20px; left: 200px;">
+        </div>
+    </div>
+
+    <div class="bottom">
+        <div class="wrapper">
+            <div>
+                <img src="static/app1/img/use2.png" alt="">
+            </div>
+            <div class="left">
+                <h2>关爱女性健康</h2>
+                <h2>人人有责</h2>
+
+            </div>
+            <div class="center">
+                <p>备案号：</p>
+                <p>帮助中心</p>
+            </div>
+            <div>
+                <p>联系作者</p>
+                <p>邮编</p>
+            </div>
+
+            <div class="right">
+                <p>版权属于：四川大学软件学院</p>
+                <p>联系电话：17730501358</p>
+            </div>
+
+        </div>
+    </div>
+
 </body>
+</html>

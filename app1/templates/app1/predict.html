@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>历史记录查询</title>
+    <title>剂量预测</title>
     <link rel="stylesheet" href="static/app1/css/base.css">
     <link rel="stylesheet" href="static/app1/css/index.css">
 </head>
@@ -26,29 +26,25 @@
                         <a href="{% url 'intro' %}">疾病介绍</a>
                     </li>
                     <li>
-                        <a href="{% url 'predict' %}">剂量图生成</a>
+                        <a href="{% url 'predict' %}" class="active">剂量图生成</a>
                     </li>
                     <li>
-                        <a href="{% url 'history' %}" class="active">历史查询记录</a>
+                        <a href="{% url 'history' %}">历史查询记录</a>
                     </li>
                 </ul>
             </div>
             <div class="search">
-                
+                <!--search function-->
             </div>
         </div>
     </div>
-        <!-- body -->
-    <div class="history">
-        <ul>
-            {% for each_patient in names_and_date %}
-            <li>
-                <h3>{{ each_patient.0 }}</h3>
-                {{ each_patient.1 }}
-                <a href="history/{{ each_patient.0}}_{{each_patient.1}} ">detail</a>
-            </li>
-            {% endfor %}
-        </ul>
-    </div>
+     <div class="upload">
+         <form action="{% url 'predict' %}" method="post" enctype="multipart/form-data">
+             {% csrf_token %}
+             <input type="file" name="upload_file" accept=".npz">
+             <input type="submit" name="submit">
+         </form>
+     </div>
+    <!-- body -->
 </body>
 </html>

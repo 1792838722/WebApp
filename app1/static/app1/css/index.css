@@ -39,25 +39,7 @@
     padding-top: auto;
 }
 
-.ngv ul {
-    display: flex;
-    padding-top: 40px;
-    font-size: 25px;
-    font-family: 楷体;
-    margin-left: 200px;
-}
-.ngv ul  li {   
-    margin-right: 60px;
-}
-.ngv ul li a {
-    display: block;
-    padding: 0 7px;
-    line-height: 17px;
-} 
 
-.ngv li a:hover {
-    border-bottom: 2px solid #3f75ab;
-}
 
 .shape1 {
     font-size: 60px;

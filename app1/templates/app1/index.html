@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DIFFDP</title>
-    <link rel="stylesheet" href="static/app1/css/base.css">
-    <link rel="stylesheet" href="static/app1/css/index.css">
+    <link rel="stylesheet" href="../../static/app1/css/base.css">
+    <link rel="stylesheet" href="../../static/app1/css/index.css">
 </head>
 <body>
     <!-- 头部区域 -->
@@ -18,13 +18,13 @@
                 </h1>
             </div>
 
-            <div class="ngv">
+            <div class="guide">
                 <ul>
                     <li>
-                        <a href="{% url 'index' %}" class="active">首页</a>
+                        <a href="{% url 'index' %}" class="active" style="color:#90ee90;">首页</a>
                     </li>
                     <li>
-                        <a href="{% url 'intro' %}">疾病介绍</a>
+                        <a href="{% url 'intro' %}">关于我们</a>
                     </li>
                     <li>
                         <a href="{% url 'predict' %}">剂量图生成</a>

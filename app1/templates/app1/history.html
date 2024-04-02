@@ -34,18 +34,21 @@
                 </ul>
             </div>
             <div class="search">
-                
+                <form action="{% url 'search' %}">
+                    <input type="text" name="tags">
+                    <input type="submit" name="submit">
+                </form>
             </div>
         </div>
     </div>
         <!-- body -->
     <div class="history">
         <ul>
-            {% for each_patient in names_and_date %}
+            {% for each_patient in patients %}
             <li>
-                <h3>{{ each_patient.0 }}</h3>
-                {{ each_patient.1 }}
-                <a href="history/{{ each_patient.0}}_{{each_patient.1}} ">detail</a>
+                <h3>{{ each_patient.name }}</h3>
+                {{ each_patient.date }}
+                <a href="history/{{ each_patient.name }}_{{ each_patient.id }}">detail</a>
             </li>
             {% endfor %}
         </ul>

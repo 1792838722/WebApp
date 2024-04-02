@@ -5,7 +5,7 @@
     <title>detail</title>
 </head>
 <body>
-    <img src="{{ patient.0 }}">
-    <img src="{{ patient.1 }}"><br>
+    <img src="{{ MEDIA_URL }}/{{ patient.0.pre_img }}">
+    <img src="{{ MEDIA_URL }}/{{ patient.0.tar_img }}"><br>
     <a href="{% url 'history' %}">back</a>
 </body>

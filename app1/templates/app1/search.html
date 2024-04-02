@@ -1,23 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
+{% load static %}
 <head>
     <meta charset="UTF-8">
-    <title>search</title>
+    <title>搜索</title>
+    <link rel="stylesheet" href="static/app1/css/base.css">
+    <link rel="stylesheet" href="static/app1/css/index.css">
 </head>
 <body>
-    {% load static %}
-    <form action="{% url 'search' %}">
-        <input type="text" name="tags">
-        <input type="submit" name="submit">
-    </form>
-    {% if img_path %}
+    <div class="title">
+        <div class="wrapper">
+            <div class="logo">
+                <h1>
+                    <a href="#">四川大学</a>
+                </h1>
+            </div>
+
+            <div class="ngv">
+                <ul>
+                    <li>
+                        <a href="{% url 'index' %}">首页</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'intro' %}">疾病介绍</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'predict' %}">剂量图生成</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'history' %}" class="active">历史查询记录</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="search">
+                <form action="{% url 'search' %}">
+                    <input type="text" name="tags">
+                    <input type="submit" name="submit">
+                </form>
+            </div>
+            <!---搜索框--->
+        </div>
+    </div>
+    {% if patients %}
     <ul>
-        {% for each_img in img_path %}
+        {% for each_patient in patients %}
         <li>
-            <img src="{{ each_img }}">
+            <h3>{{ each_patient.name }}</h3>
+            {{ each_patient.date }}
+            <a href="history/{{ each_patient.name }}_{{ each_patient.id }}">detail</a>
         </li>
         {% endfor %}
     </ul>
+    {% else %}
+        <p>暂无信息！</p>
     {% endif %}
-    <a href="{% url 'index' %}">back</a>
+    <!---信息展示--->
+    <a href="{% url 'history' %}">back</a>
 </body>

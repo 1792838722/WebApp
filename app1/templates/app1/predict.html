@@ -33,9 +33,6 @@
                     </li>
                 </ul>
             </div>
-            <div class="search">
-                <!--search function-->
-            </div>
         </div>
     </div>
      <div class="upload">
@@ -45,6 +42,21 @@
              <input type="submit" name="submit">
          </form>
      </div>
-    <!-- body -->
+     <!--上传-->
+     <div class="show_msg">
+         {% if msg %}
+            <p>{{ msg }}</p>
+         {% endif %}
+     </div>
+     <!--展示重复 msg-->
+     <div class="show_patient">
+         {% if patient %}
+            <h3>{{ patient.name }}</h3>
+            {{ patient.date }}
+            <a href="history/{{ patient.name }}_{{ patient.id }}">detail</a>
+         {% endif %}
+     </div>
+     <!--上传后信息显示-->
+     <!-- body -->
 </body>
 </html>

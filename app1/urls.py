@@ -21,7 +21,7 @@ urlpatterns = [
     path('', views.Index.as_view(), name='index'),
     path('predict', views.Predict.as_view(), name='predict'),
     path('intro', views.Intro.as_view(), name='intro'),
-    path(r'^search', views.Search.as_view(), name='search'),
+    re_path(r'^search', views.Search.as_view(), name='search'),
     re_path(r'^history$', views.History.as_view(), name='history'),
     re_path(r'^history/.', views.Detail.as_view(), name='detail'),
     # url 表待改

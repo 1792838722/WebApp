@@ -11,14 +11,7 @@ from .exercise import Show_result
 
 class Index(View):
     def get(self, request):
-        img_path = []
-        for each_img in Medical.objects.all():
-            img_path.append(each_img.pre_img.url)
-            img_path.append(each_img.tar_img.url)
-            # 交叉插入,待优化
-        value = {'img_path': img_path}
-        return render(request, 'app1/index.html', context=value)
-        # context 以字典赋值，无法遍历 context 本身
+        return render(request, 'app1/index.html')
 
 
 class Predict(View):
@@ -32,17 +25,20 @@ class Predict(View):
         patient_name = upload_file_name[:upload_file_name.find('.')]
         file_folder_path = os.path.join('resource', 'patient', get_time(), patient_name)
         if os.path.exists(os.path.join(file_folder_path, patient_name)):
-            return redirect('index')  # 文件已存在，跳过
+            value = {'msg': '上传文件重复'}
+            return render(request, 'app1/predict.html', context=value)  # 文件已存在，跳过
 
         if not os.path.exists(file_folder_path):
             os.makedirs(file_folder_path)
         # 在 /resource 中不重复地创建文件夹 /patient /{{ time }} /{{ patient_name }}
+
         # upload_image_name = upload_image_name.replace('.',
         # '_' +
         # ''.join(random.SystemRandom().choice(
         # string.ascii_letters + string.digits)
         # for _ in range(8))
         # + '.')
+        # 重复文件添加随机后缀
 
         patient = Medical.objects.create(name=patient_name, raw_file=upload_file)
         test_out.generate_mha(file_folder_path)
@@ -52,7 +48,8 @@ class Predict(View):
         patient.pre_img.name = os.path.join('patient', get_time(), patient_name, patient_name + '_pre.png')
         patient.tar_img.name = os.path.join('patient', get_time(), patient_name, patient_name + '_tar.png')
         patient.save()
-        return render(request, 'app1/predict.html')
+        value = {'patient': patient}
+        return render(request, 'app1/predict.html', context=value)
 
 
 class Intro(View):
@@ -65,29 +62,22 @@ class Search(View):
         if not request.GET:
             return render(request, 'app1/search.html')
         tags = request.GET['tags']
-        # print(tags)
-        img_path = []
-        for each_img in Medical.objects.filter(name=tags):
-            img_path.append(each_img.pre_img.url)
-            img_path.append(each_img.tar_img.url)
-            # 交叉插入,待优化
-        value = {'img_path': img_path}
+        value = {'patients': Medical.objects.filter(name=tags)}
         # 模糊搜索待添加
         return render(request, 'app1/search.html', context=value)
 
 
 class History(View):
     def get(self, request):
-        names_and_date = Medical.objects.values_list('name', 'date')
-        value = {'names_and_date': list(names_and_date)}
+        value = {'patients': Medical.objects.all()}
         return render(request, 'app1/history.html', context=value)
 
 
 class Detail(View):
     def get(self, request):
-        patient_name = request.path_info[(request.path_info.rfind('/') + 1):request.path_info.rfind('_')]
-        patient = Medical.objects.filter(name=patient_name)
-        value = {'patient': [patient[0].pre_img.url, patient[0].tar_img.url]}
+        patient_id = request.path_info[(request.path_info.rfind('_') + 1):]
+        value = {'patient': Medical.objects.filter(id=patient_id)}
+        print(Medical.objects.filter(id=patient_id))
         return render(request, 'app1/detail.html', context=value)
     # 重复性，url待修改
     # 搜索多个待修改

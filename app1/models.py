@@ -16,6 +16,7 @@ def upload_to(instance, filename):
 class Medical(models.Model):
     name = models.CharField(max_length=100)
     date = models.DateField(auto_now_add=True)
+    id = models.IntegerField(auto_created=True, primary_key=True)
 
     raw_file = models.FileField(default='null', upload_to=upload_to)
 

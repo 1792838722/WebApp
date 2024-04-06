@@ -4,33 +4,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="static/app1/css/index.css?v=${VERSION}">
-    <link rel="stylesheet" href="static/app1/css/base.css?v=${VERSION}">
+    <link rel="stylesheet" href="static/app1/css/index.css?v={{VERSION}}">
+    <link rel="stylesheet" href="static/app1/css/base.css?v={{VERSION}}">
     <title>DIFFDP</title>
 </head>
 <body>
     <!-- 头部区域 -->
-    <div class="title">
-        <div class="wrapper">
-            <div class="logo">
-                <h1>
-                    <a href="#">四川大学</a>
-                </h1>
-            </div>
-
             <div class="ngv">
+                 <div class="title">
+                    <div class="wrapper">
+                           <div class="logo">
+                               <h1>
+                                  <a href="#">四川大学</a>
+                               </h1>
+            </div>
                 <ul>
                     <li>
                         <a href="{% url 'index' %}" class="active" style="color:#90ee90;">首页</a>
                     </li>
-                    <li>
-                        <a href="{% url 'intro' %}" >关于我们</a>
-                    </li>
+
                     <li>
                         <a href="{% url 'predict' %}" >剂量图生成</a>
                     </li>
                     <li>
                         <a href="{% url 'history' %}">历史查询记录</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'intro' %}" >关于我们</a>
                     </li>
                 </ul>
             </div>
@@ -40,30 +40,8 @@
         </div>
     </div>
     <!-- 核心区域 -->
-    <div class="body">
-        <div class="shape1">你是否需要精准的剂量方案???</div>
-        <div class="shape2">---------你是否饱受放疗计划的困扰???</div>
-        <div class="shape3">结合人工智能和医学影像的技术---DIFFDP，它来了</div>
-
-        <div class="shape4">
-            <h3>面向患者</h3>
-            <ul>
-                <li>保障更多的女性健康安全</li>
-                <li>让患者更安心</li>
-            </ul>
-
-        </div>
-        <div class="shape4">
-            <h3>面向医师</h3>
-            <ul>
-                <li>降低失误率以及药物对于身体的损坏</li>
-                <li>为患者提供更好的方案</li>
-            </ul>
-        </div>
-        <div style="position: relative;">
-            <img src="static/app1/img/dosimetry.png" alt="剂量学规则" style="position: absolute; top: 20px; left: 200px;">
-        </div>
-    </div>
+   <div class="main">
+       <img>
 
     <div class="bottom">
         <div class="wrapper">

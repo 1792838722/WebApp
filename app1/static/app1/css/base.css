@@ -19,8 +19,18 @@
     text-decoration: none;
   }
 
+.ngv .logo  a {
+    font-size: 0;
+    background-image: url('../img/SCU_logo.png');
+    width: 92px;
+    height: 92px;
+    display: block;
+    padding-top: auto;
+}
+
   .ngv{
-    background-color:#FFFFFF;
+    background-color:white;
+
 }
   .ngv ul li {
     margin-right: 60px;

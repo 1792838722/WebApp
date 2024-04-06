@@ -21,27 +21,7 @@
     height: 200px;
 }
 
-.title {
-    background-color: rgb(242, 245, 248);
-    height: 92px;
 }
-.title .wrapper {
-    /* padding-top: 29px; */
-    display: flex;
-}
-
-.logo  a {
-
-    font-size: 0;
-    background-image: url('../img/SCU_logo.png');
-    width: 92px;
-    height: 92px;
-    display: block;
-    padding-top: auto;
-}
-
-
-
 .shape1 {
     font-size: 60px;
     font-weight: 70px;
@@ -111,28 +91,4 @@
     font-style: italic;
     padding: 4px;
     color: aquamarine;
-}
-.ngv{
-    background-color:white;
-}
-  .ngv ul li {
-    margin-right: 60px;
-}
-  .ngv ul li a {
-    display: block;
-    padding: 0 7px;
-    line-height: 17px;
-    color:black;
-    font-weight:500;
-}
-
-  .ngv li a:hover {
-    color:#90ee90;
-}
-  .ngv ul {
-    display: flex;
-    padding-top: 40px;
-    font-size: 25px;
-    font-family: 楷体;
-    margin-left: 200px;
 }

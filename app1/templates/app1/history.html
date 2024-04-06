@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>历史记录查询</title>
-    <link rel="stylesheet" href="static/app1/css/base.css?v=${VERSION}">
-    <link rel="stylesheet" href="static/app1/css/index.css?v=${VERSION}">
+    <link rel="stylesheet" href="static/app1/css/base.css?v={{VERSION}}">
+    <link rel="stylesheet" href="static/app1/css/index.css?v={{VERSION}}">
 </head>
 <body>
      <!-- 头部区域 -->
@@ -23,15 +23,17 @@
                     <li>
                         <a href="{% url 'index' %}">首页</a>
                     </li>
-                    <li>
-                        <a href="{% url 'intro' %}">关于我们</a>
-                    </li>
+
                     <li>
                         <a href="{% url 'predict' %}">剂量图生成</a>
                     </li>
                     <li>
-                        <a href="{% url 'history' %}" class="active">历史查询记录</a>
+                        <a href="{% url 'history' %}" class="active" style="color:#90ee90;">历史查询记录</a>
                     </li>
+                    <li>
+                        <a href="{% url 'intro' %}">关于我们</a>
+                    </li>
+
                 </ul>
             </div>
             <div class="search">

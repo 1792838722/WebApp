@@ -4,17 +4,43 @@
     padding: 0;
     box-sizing: border-box;
   }
-  
+
   li {
     list-style: none;
   }
-  
+
   body {
     font: 14px/1.5 "Microsoft Yahei", "Hiragino Sans GB", "Heiti SC", "WenQuanYi Micro Hei", sans-serif;
     color: #333;
   }
-  
+
   a {
     color: #333;
     text-decoration: none;
   }
+
+  .ngv{
+    background-color:#FFFFFF;
+}
+  .ngv ul li {
+    margin-right: 60px;
+}
+  .ngv ul li a {
+    display: block;
+    padding: 0 7px;
+    line-height: 17px;
+    color:black;
+    font-weight:500;
+}
+
+  .ngv li a:hover {
+    color:#90ee90;
+}
+  .ngv ul {
+    display: flex;
+    padding-top: 40px;
+    font-size: 25px;
+    font-family: 楷体;
+    margin-left: 200px;
+}
+

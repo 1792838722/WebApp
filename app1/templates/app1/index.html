@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/app1/css/index.css?v=${VERSION}">
+    <link rel="stylesheet" href="static/app1/css/base.css?v=${VERSION}">
     <title>DIFFDP</title>
-    <link rel="stylesheet" href="../../static/app1/css/base.css">
-    <link rel="stylesheet" href="../../static/app1/css/index.css">
 </head>
 <body>
     <!-- 头部区域 -->
@@ -18,16 +18,16 @@
                 </h1>
             </div>
 
-            <div class="guide">
+            <div class="ngv">
                 <ul>
                     <li>
                         <a href="{% url 'index' %}" class="active" style="color:#90ee90;">首页</a>
                     </li>
                     <li>
-                        <a href="{% url 'intro' %}">关于我们</a>
+                        <a href="{% url 'intro' %}" >关于我们</a>
                     </li>
                     <li>
-                        <a href="{% url 'predict' %}">剂量图生成</a>
+                        <a href="{% url 'predict' %}" >剂量图生成</a>
                     </li>
                     <li>
                         <a href="{% url 'history' %}">历史查询记录</a>

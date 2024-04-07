@@ -18,25 +18,37 @@
     color: #333;
     text-decoration: none;
   }
-
-.ngv .logo  a {
-    font-size: 0;
-    background-image: url('../img/SCU_logo.png');
-    width: 92px;
-    height: 92px;
-    display: block;
-    padding-top: auto;
+.top{
+    background-color:#00827F;
+    height:25px;
+}
+.top .logo{
+    display:inline-block;
+    margin-left:350px;
+}
+.top .login{
+    text-decoration:underline;
+    display:flex;
+    position:absolute;
+    left:1300px;
+    top:3px;
+}
+.ngv .title {
+    display:inline-block;
+    font-size:45px;
+    color:#00827F;
+    margin-left:70px;
 }
 
   .ngv{
     background-color:white;
-
 }
   .ngv ul li {
-    margin-right: 60px;
+    display: inline-block;
+    margin-right: 80px;
 }
   .ngv ul li a {
-    display: block;
+    display: inline-block;
     padding: 0 7px;
     line-height: 17px;
     color:black;
@@ -47,10 +59,19 @@
     color:#90ee90;
 }
   .ngv ul {
-    display: flex;
-    padding-top: 40px;
+    display:flex;
+    position: absolute;
+    left:350px;
+    top:45px;
     font-size: 25px;
     font-family: 楷体;
-    margin-left: 200px;
+    margin-top:0px;
+    margin-left: 150px;
+}
+.tips{
+    text-decoration: none;
+    font-size:50px;
+    margin-left:550px;
+    padding-top:300px;
 }
 

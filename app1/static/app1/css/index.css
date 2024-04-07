@@ -10,11 +10,7 @@
 
 }
 .body {
-    background-image: url("/static/app1/img/4.png");
-    background-position: 900px 220px;
-    background-color: rgb(79, 150, 194);
-    background-repeat: no-repeat;
-    height: 700px;
+
 }
 .bottom {
     background-color: #f3f5f7;

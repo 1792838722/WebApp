@@ -77,7 +77,6 @@ class Detail(View):
     def get(self, request):
         patient_id = request.path_info[(request.path_info.rfind('_') + 1):]
         value = {'patient': Medical.objects.filter(id=patient_id)}
-        print(Medical.objects.filter(id=patient_id))
         return render(request, 'app1/detail.html', context=value)
     # 重复性，url待修改
     # 搜索多个待修改

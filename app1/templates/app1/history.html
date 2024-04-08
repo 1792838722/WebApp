@@ -7,16 +7,19 @@
     <title>历史记录查询</title>
     <link rel="stylesheet" href="static/app1/css/base.css?v={{VERSION}}">
     <link rel="stylesheet" href="static/app1/css/index.css?v={{VERSION}}">
+    <link rel="stylesheet" href="static/app1/css/bootstrap.min.css?v={{VERSION}}">
+
 </head>
 <body>
      <!-- 头部区域 -->
+
      <div class="top">
                 <div class="logo">
                     <img src="../../static/app1/img/SCU_logo.png">
                 </div>
                 <div class="login">
-                    <a href="#" >注册</a>
-                    <a href="#" style="margin-left:5px;">登录</a>
+                    <a href="#" style="color:white;">注册</a>
+                    <a href="#" style="margin-left:5px; color:white;">登录</a>
                 </div>
             </div>
             <div class="ngv">
@@ -32,31 +35,41 @@
                         <a href="{% url 'predict' %}" >剂量图生成</a>
                     </li>
                     <li>
-                        <a href="{% url 'history' %}"style="color:#90ee90;">历史查询记录</a>
+                        <a href="{% url 'history' %}" style="color:#90ee90;">历史查询记录</a>
+                    </li>
+                    <li>
+                        <a href="#">在线对谈</a>
                     </li>
                     <li>
                         <a href="{% url 'intro' %}" >关于我们</a>
                     </li>
                 </ul>
-            <div class="search">
+            </div>
+            <div class="search" style="margin-left:525px;margin-top:30px;">
                 <form action="{% url 'search' %}">
-                    <input type="text" name="tags">
+                    <input type="text" name="tags" style="width:500px;">
                     <input type="submit" name="submit">
                 </form>
             </div>
-        </div>
-    </div>
+
         <!-- body -->
-    <div class="history">
-        <ul>
-            {% for each_patient in patients %}
-            <li>
-                <h3>{{ each_patient.name }}</h3>
-                {{ each_patient.date }}
-                <a href="history/{{ each_patient.name }}_{{ each_patient.id }}">detail</a>
-            </li>
-            {% endfor %}
-        </ul>
-    </div>
+               <table id="table" data-pagination-detail-h-align="right" data-toggle="table" data-pagination="true" data-pagination-loop="false" data-page-size="2" data-show-pagination-switch="false" data-classes="table" align="center">
+                     <tbody >
+                     <tr align="center">
+                                <td data-field="id" data-halign="center" data-sortable="true" class="ths">姓名</td>
+                                <td data-field="name" data-halign="center" class="ths">日期</td>
+                                <td data-field="info" data-halign="center" class="ths">详情</td>
+                            </tr>
+                            {% for each_patient in patients %}
+                            <tr align="center">
+                                <td data-field="id" class="tds">{{ each_patient.name }}</td>
+                                <td data-field="name" class="tds">{{ each_patient.date }}</td>
+                                <td data-field="info" class="tds">
+                                    <a href="history/{{ each_patient.name }}_{{ each_patient.id }}">detail</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
 </body>
 </html>

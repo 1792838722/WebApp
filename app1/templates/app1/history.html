@@ -7,8 +7,7 @@
     <title>历史记录查询</title>
     <link rel="stylesheet" href="static/app1/css/base.css?v={{VERSION}}">
     <link rel="stylesheet" href="static/app1/css/index.css?v={{VERSION}}">
-    <link rel="stylesheet" href="static/app1/css/bootstrap.min.css?v={{VERSION}}">
-    <
+    <script src="static/app1/js/jQuery.js"></script>
 </head>
 <body>
      <!-- 头部区域 -->
@@ -45,7 +44,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="search" style="margin-left:525px;margin-top:30px;">
+            <div class="search" style="margin-left:500px;margin-top:30px;">
                 <form action="{% url 'search' %}">
                     <input type="text" name="tags" style="width:500px;">
                     <input type="submit" name="submit">
@@ -53,19 +52,19 @@
             </div>
 
         <!-- body -->
-               <table id="table" data-pagination-detail-h-align="right" data-toggle="table" data-pagination="true" data-pagination-loop="false" data-page-size="2" data-show-pagination-switch="false" data-classes="table" align="center">
+               <table id="table" data-pagination-detail-h-align="right" data-toggle="table" data-pagination="true" data-pagination-loop="false" data-page-size="2" data-show-pagination-switch="false" data-classes="table" >
                      <tbody >
                      <tr align="center">
                                 <td data-field="id" data-halign="center" data-sortable="true" class="ths">姓名</td>
                                 <td data-field="name" data-halign="center" class="ths">日期</td>
-                                <td data-field="info" data-halign="center" class="ths">详情</td>
+                                <td data-field="info" data-halign="center" class="ths">&nbsp;&nbsp;&nbsp;详情</td>
                             </tr>
                             {% for each_patient in patients %}
                             <tr align="center">
                                 <td data-field="id" class="tds">{{ each_patient.name }}</td>
                                 <td data-field="name" class="tds">{{ each_patient.date }}</td>
                                 <td data-field="info" class="tds">
-                                    <a href="history/{{ each_patient.name }}_{{ each_patient.id }}">detail</a>
+                                   &nbsp;&nbsp;&nbsp; <a href="history/{{ each_patient.name }}_{{ each_patient.id }}">detail</a>
                                 </td>
                             </tr>
                             {% endfor %}

@@ -6,7 +6,6 @@
     <title>搜索</title>
     <link rel="stylesheet" href="static/app1/css/base.css?v={{VERSION}}">
     <link rel="stylesheet" href="static/app1/css/index.css?v={{VERSION}}">
-     <link rel="stylesheet" href="static/app1/css/bootstrap.min.css?v={{VERSION}}">
     <script src="{% static 'static/app1/js/jquery/package.json' %}"></script>
 </head>
 <body>
@@ -15,8 +14,8 @@
                     <img src="../../static/app1/img/SCU_logo.png">
                 </div>
                 <div class="login">
-                    <a href="#" >注册</a>
-                    <a href="#" style="margin-left:5px;">登录</a>
+                    <a href="#" style="color:white;">注册</a>
+                    <a href="#" style="margin-left:5px; color:white;">登录</a>
                 </div>
             </div>
             <div class="ngv">
@@ -41,7 +40,7 @@
                         <a href="{% url 'intro' %}" >关于我们</a>
                     </li>
                 </ul>
-            <div class="search" style="margin-left:525px;margin-top:30px;">
+            <div class="search" style="margin-left:500px;margin-top:30px;">
                 <form action="{% url 'search' %}">
                     <input type="text" name="tags" style="width:500px;">
                     <input type="submit" name="submit">
@@ -51,7 +50,7 @@
         </div>
     </div>
     {% if patients %}
-    <table id="table" data-pagination-detail-h-align="right" data-toggle="table" data-pagination="true" data-pagination-loop="false" data-page-size="2" data-show-pagination-switch="false" data-classes="table" align="center">
+    <table id="table" data-pagination-detail-h-align="right" data-toggle="table" data-pagination="true" data-pagination-loop="false" data-page-size="2" data-show-pagination-switch="false" data-classes="table" >
                      <tbody >
                      <tr align="center">
                                 <td data-field="id" data-halign="center" data-sortable="true" class="ths">姓名</td>
@@ -73,5 +72,5 @@
         <p>暂无信息！</p>
     {% endif %}
     <!---信息展示--->
-    <a href="{% url 'history' %}">back</a>
+    <a href="{% url 'history' %}" style="margin-left:1100px; margin-top:50px; font-size:20px;">返回</a>
 </body>

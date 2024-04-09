@@ -58,7 +58,11 @@ class Predict(View):
         }
         data_json = json.dumps(data_dict)
         url = 'http://10.106.13.36:12500/predict'
-        response = requests.post(url, json=data_json, headers={'Content-Type': 'application/json'})
+        response = requests.post(
+            url,
+            json=data_json,
+            headers={'Content-Type': 'application/json'}
+        )
 
         if response.status_code == 200:
             print('OK!')
@@ -67,8 +71,8 @@ class Predict(View):
             tar_img_data = base64.b64decode(data_return['tar_img'])
             b64_to_img(os.path.join(folder_path, patient_name + '_pre.png'), pre_img_data)
             b64_to_img(os.path.join(folder_path, patient_name + '_tar.png'), tar_img_data)
-            patient.pre_img.name = os.path.join(folder_path, patient_name + '_pre.png')
-            patient.tar_img.name = os.path.join(folder_path, patient_name + '_tar.png')
+            patient.pre_img.name = os.path.join('patient', upload_time, patient_name, patient_name + '_pre.png')
+            patient.tar_img.name = os.path.join('patient', upload_time, patient_name, patient_name + '_tar.png')
             patient.save()
             value = {'patient': patient}
             return render(request, 'app1/predict.html', context=value)
@@ -101,9 +105,9 @@ class History(View):
 
 
 class Detail(View):
-    def get(self, request):
-        patient_id = request.path_info[(request.path_info.rfind('_') + 1):]
-        value = {'patient': Medical.objects.filter(id=patient_id)}
+    def get(self, request, str_id):
+        patient_name, patient_id = str_id.split('_')
+        value = {'patient': Medical.objects.filter(id=patient_id), 'patient_name': patient_name}
         return render(request, 'app1/detail.html', context=value)
     # 重复性，url待修改
     # 搜索多个待修改

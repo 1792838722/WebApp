@@ -40,7 +40,7 @@
                         <a href="{% url 'intro' %}" >关于我们</a>
                     </li>
                 </ul>
-     <div class="upload">
+     <div class="upload" style="margin-left:600px;margin-top:200px;">
          <form action="{% url 'predict' %}" method="post" enctype="multipart/form-data">
              {% csrf_token %}
              <input type="file" name="upload_file" accept=".npz">

@@ -4,9 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <title>搜索</title>
+   <link rel="stylesheet" href="/static/app1/css/bootstrap.min.css?v={{VERSION}}">
+    <link rel="stylesheet" href="/static/app1/css/bootstrap-table.min.css?v={{VERSION}}">
     <link rel="stylesheet" href="static/app1/css/base.css?v={{VERSION}}">
     <link rel="stylesheet" href="static/app1/css/index.css?v={{VERSION}}">
-    <script src="{% static 'static/app1/js/jquery/package.json' %}"></script>
+    <script src="static/app1/js/jquery.min.js"></script>
+    <script src="static/app1/js/bootstrap-table.min.js"></script>
+    <script src="static/app1/js/bootstrap-table-zh-CN.min.js"></script>
 </head>
 <body>
     <div class="top">
@@ -50,24 +54,32 @@
         </div>
     </div>
     {% if patients %}
-    <table id="table" data-pagination-detail-h-align="right" data-toggle="table" data-pagination="true" data-pagination-loop="false" data-page-size="2" data-show-pagination-switch="false" data-classes="table" >
-                     <tbody >
-                     <tr align="center">
-                                <td data-field="id" data-halign="center" data-sortable="true" class="ths">姓名</td>
-                                <td data-field="name" data-halign="center" class="ths">日期</td>
-                                <td data-field="info" data-halign="center" class="ths">详情</td>
-                            </tr>
-                            {% for each_patient in patients %}
-                            <tr align="center">
-                                <td data-field="id" class="tds">{{ each_patient.name }}</td>
-                                <td data-field="name" class="tds">{{ each_patient.date }}</td>
-                                <td data-field="info" class="tds">
-                                    <a href="history/{{ each_patient.name }}_{{ each_patient.id }}">detail</a>
-                                </td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
+    <table class="table table-bordered table-hover "
+                data-pagination-detail-h-align="right"
+                data-toggle="table"
+                data-pagination="true"
+                data-pagination-loop="false" data-page-size="5" data-show-pagination-switch="false"
+                data-classes="table"
+                style="text-align: center; width:520px; margin-left:500px; margin-top:15px;">
+             <thead class="thead-light">
+             <tr align="center">
+                 <th data-field="name" data-halign="center" data-sortable="true" scope="col">姓名</th>
+                 <th data-field="date" data-halign="center" scope="col">日期</th>
+                 <th data-field="info" data-halign="center" scope="col">详情</th>
+             </tr>
+             </thead>
+             <tbody>
+                 {% for each_patient in patients %}
+                 <tr align="center">
+                     <th data-field="name" scope="row">{{ each_patient.name }}</th>
+                     <td data-field="date">{{ each_patient.date }}</td>
+                     <td class="table-info" data-field="info">
+                                <a href="history/{{ each_patient.name }}_{{ each_patient.id }}">detail</a>
+                     </td>
+                 </tr>
+                 {% endfor %}
+             </tbody>
+         </table>
     {% else %}
         <p>暂无信息！</p>
     {% endif %}

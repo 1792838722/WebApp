@@ -5,70 +5,82 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>历史记录查询</title>
+    <link rel="stylesheet" href="/static/app1/css/bootstrap.min.css?v={{VERSION}}">
+    <link rel="stylesheet" href="/static/app1/css/bootstrap-table.min.css?v={{VERSION}}">
     <link rel="stylesheet" href="static/app1/css/base.css?v={{VERSION}}">
     <link rel="stylesheet" href="static/app1/css/index.css?v={{VERSION}}">
-    <link rel="stylesheet" href="static/app1/css/bootstrap.min.css?v={{VERSION}}">
+    <script src="static/app1/js/jquery.min.js"></script>
+    <script src="static/app1/js/bootstrap-table.min.js"></script>
+    <script src="static/app1/js/bootstrap-table-zh-CN.min.js"></script>
 </head>
 <body>
      <!-- 头部区域 -->
-
      <div class="top">
-                <div class="logo">
-                    <img src="../../static/app1/img/SCU_logo.png">
-                </div>
-                <div class="login">
-                    <a href="#" style="color:white;">注册</a>
-                    <a href="#" style="margin-left:5px; color:white;">登录</a>
-                </div>
-            </div>
-            <div class="ngv">
-                <a href="#" class="title">
-                    AI prediction
-                    </a>
-                <ul>
-                    <li>
-                        <a href="{% url 'index' %}" class="active" >首页</a>
-                    </li>
+         <div class="logo">
+             <img src="../../static/app1/img/SCU_logo.png">
+         </div>
+         <div class="login">
+             <a href="#" style="color:white;">注册</a>
+             <a href="#" style="margin-left:5px; color:white;">登录</a>
+         </div>
+     </div>
+     <div class="ngv">
+         <a href="#" class="title">
+             AI prediction
+         </a>
+         <ul>
+             <li>
+                 <a href="{% url 'index' %}" class="active" >首页</a>
+             </li>
+             <li>
+                 <a href="{% url 'predict' %}" >剂量图生成</a>
+             </li>
+             <li>
+                 <a href="{% url 'history' %}" style="color:#90ee90;">历史查询记录</a>
+             </li>
+             <li>
+                 <a href="#">在线对谈</a>
+             </li>
+             <li>
+                 <a href="{% url 'intro' %}" >关于我们</a>
+             </li>
+         </ul>
+     </div>
+     <div class="search" style="margin-left:500px;margin-top:30px;">
+         <form action="{% url 'search' %}">
+             <input type="text" name="tags" style="width:500px;">
+             <input type="submit" name="submit">
+         </form>
+     </div>
 
-                    <li>
-                        <a href="{% url 'predict' %}" >剂量图生成</a>
-                    </li>
-                    <li>
-                        <a href="{% url 'history' %}" style="color:#90ee90;">历史查询记录</a>
-                    </li>
-                    <li>
-                        <a href="#">在线对谈</a>
-                    </li>
-                    <li>
-                        <a href="{% url 'intro' %}" >关于我们</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="search" style="margin-left:525px;margin-top:30px;">
-                <form action="{% url 'search' %}">
-                    <input type="text" name="tags" style="width:500px;">
-                    <input type="submit" name="submit">
-                </form>
-            </div>
-
-        <!-- body -->
-               <table id="table" data-pagination-detail-h-align="right" data-toggle="table" data-pagination="true" data-pagination-loop="false" data-page-size="2" data-show-pagination-switch="false" data-classes="table" align="center">
-                     <tbody >
-                     <tr align="center">
-                                <td data-field="id" data-halign="center" data-sortable="true" class="ths">姓名</td>
-                                <td data-field="name" data-halign="center" class="ths">日期</td>
-                                <td data-field="info" data-halign="center" class="ths">详情</td>
-                            </tr>
-                            {% for each_patient in patients %}
-                            <tr align="center">
-                                <td data-field="id" class="tds">{{ each_patient.name }}</td>
-                                <td data-field="name" class="tds">{{ each_patient.date }}</td>
-                                <td data-field="info" class="tds">
-                                    <a href="history/{{ each_patient.name }}_{{ each_patient.id }}">detail</a>
-                                </td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
+     <!-- body -->
+     <div>
+         <table class="table table-bordered table-hover "
+                data-pagination-detail-h-align="right"
+                data-toggle="table"
+                data-pagination="true"
+                data-pagination-loop="false" data-page-size="5" data-show-pagination-switch="false"
+                data-classes="table"
+                style="text-align: center; width:520px; margin-left:500px; margin-top:15px;">
+             <thead class="thead-light">
+             <tr align="center">
+                 <th data-field="name" data-halign="center" data-sortable="true" scope="col">姓名</th>
+                 <th data-field="date" data-halign="center" scope="col">日期</th>
+                 <th data-field="info" data-halign="center" scope="col">详情</th>
+             </tr>
+             </thead>
+             <tbody>
+                 {% for each_patient in patients %}
+                 <tr align="center">
+                     <th data-field="name" scope="row">{{ each_patient.name }}</th>
+                     <td data-field="date">{{ each_patient.date }}</td>
+                     <td class="table-info" data-field="info">
+                                <a href="history/{{ each_patient.name }}_{{ each_patient.id }}">detail</a>
+                     </td>
+                 </tr>
+                 {% endfor %}
+             </tbody>
+         </table>
+     </div>
 </body>
 </html>

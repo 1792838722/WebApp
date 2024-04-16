@@ -4,15 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="static/app1/css/index.css?v={{VERSION}}">
-    <link rel="stylesheet" href="static/app1/css/base.css?v={{VERSION}}">
+    <link rel="stylesheet" href="{% static 'app1/css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'app1/css/base.css' %}">
     <title>DIFFDP</title>
 </head>
 <body>
     <!-- 头部区域 -->
             <div class="top">
                 <div class="logo">
-                    <img src="../../static/app1/img/SCU_logo.png">
+                    <img src="{% static 'app1/img/SCU_logo.png' %}">
                 </div>
                 <div class="login">
                     <a href="#" >注册</a>
@@ -44,7 +44,7 @@
     <!-- 核心区域 -->
    <div class="main">
        <div>
-       <img src="././static/app1/img/back-beautiful-woman-who-is-happy-meadow-with-big-mountain-as.jpg">
+       <img src="static/app1/img/back-beautiful-woman-who-is-happy-meadow-with-big-mountain-as.jpg">
        </div>
        <a class="tips" >
            我们提供什么帮助？
@@ -52,7 +52,7 @@
     <div class="bottom">
         <div class="wrapper">
             <div>
-                <img src="static/app1/img/use2.png" alt="">
+                <img src=""../../static/app1/img/use2.png" alt="">
             </div>
             <div class="left">
                 <h2>关爱女性健康</h2>

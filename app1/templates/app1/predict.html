@@ -50,22 +50,16 @@
      <div class="upload" style="margin-left:500px;margin-top:75px;">
          <form action="{% url 'predict' %}" method="post" enctype="multipart/form-data">
              {% csrf_token %}
-             <input type="file" name="upload_file" accept=".npz" style="height:150px;width:300px;font-size:25px;margin-right:150px;">
+             {{ form.as_p }}
              <input type="submit" name="submit" style="font-size:25px;">
          </form>
      </div>
      <!--上传-->
-     <div class="show_msg">
-         {% if msg %}
-            <p>{{ msg }}</p>
-         {% endif %}
-     </div>
-     <!--展示重复 msg-->
      <div class="show_patient">
          {% if patient %}
             <h3>{{ patient.name }}</h3>
             {{ patient.date }}
-            <a href="history/{{ patient.name }}_{{ patient.id }}">detail</a>
+            <a href="history/{{ patient.patient_name }}_{{ patient.id }}">detail</a>
          {% endif %}
      </div>
      <!--上传后信息显示-->

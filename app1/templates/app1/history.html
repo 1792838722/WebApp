@@ -72,10 +72,10 @@
              <tbody>
                  {% for each_patient in patients %}
                  <tr align="center">
-                     <th data-field="name" scope="row">{{ each_patient.name }}</th>
+                     <th data-field="name" scope="row">{{ each_patient.patient_name }}</th>
                      <td data-field="date">{{ each_patient.date }}</td>
                      <td class="table-info" data-field="info">
-                                <a href="history/{{ each_patient.name }}_{{ each_patient.id }}">detail</a>
+                                <a href="history/{{ each_patient.patient_name }}_{{ each_patient.id }}">detail</a>
                      </td>
                  </tr>
                  {% endfor %}

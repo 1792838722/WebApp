@@ -4,6 +4,7 @@ from .models import *
 from django.views import View
 from .exercise import test_out
 from .exercise import Show_result
+from .forms import UploadForm
 
 
 # Create your views here.
@@ -16,39 +17,31 @@ class Index(View):
 
 class Predict(View):
     def get(self, request):
-        return render(request, 'app1/predict.html')
+        form = UploadForm()
+        value = {'form': form}
+        return render(request, 'app1/predict.html', context=value)
 
     def post(self, request):
-        upload_file = request.FILES.get('upload_file')
-
-        upload_file_name = upload_file.name
-        patient_name = upload_file_name[:upload_file_name.find('.')]
-        folder_path = os.path.join('resource', 'patient', get_time(), patient_name)
-        if os.path.exists(os.path.join(folder_path, patient_name)):
-            value = {'msg': '上传文件重复'}
-            return render(request, 'app1/predict.html', context=value)  # 文件已存在，跳过
-
-        if not os.path.exists(folder_path):
-            os.makedirs(folder_path)
-        # 在 /resource 中不重复地创建文件夹 /patient /{{ time }} /{{ patient_name }}
-
-        # upload_image_name = upload_image_name.replace('.',
-        # '_' +
-        # ''.join(random.SystemRandom().choice(
-        # string.ascii_letters + string.digits)
-        # for _ in range(8))
-        # + '.')
-        # 重复文件添加随机后缀
-
-        patient = Medical.objects.create(name=patient_name, raw_file=upload_file)
-        test_out.generate_mha(folder_path)
-        Show_result.generate_img(folder_path=folder_path, patient_name=patient_name)
-        # 文件处理及重命名
-
-        patient.pre_img.name = os.path.join('patient', get_time(), patient_name, patient_name + '_pre.png')
-        patient.tar_img.name = os.path.join('patient', get_time(), patient_name, patient_name + '_tar.png')
-        patient.save()
-        value = {'patient': patient}
+        form = UploadForm(data=request.POST, files=request.FILES)
+        if form.is_valid():
+            instance = form.save()
+            folder_path = os.path.join('resource', 'patient', get_time(), instance.patient_name)
+            test_out.generate_mha(folder_path)
+            Show_result.generate_img(folder_path=folder_path, patient_name=instance.patient_name)
+            instance.pre_img.name = os.path.join('patient', get_time(),
+                                                 instance.patient_name, instance.patient_name + '_pre.png')
+            instance.tar_img.name = os.path.join('patient', get_time(),
+                                                 instance.patient_name, instance.patient_name + '_tar.png')
+            instance.save()
+            value = {
+                'patient': instance,
+                'form': form
+                }
+        else:
+            value = {
+                'patient': None,
+                'form': form
+            }
         return render(request, 'app1/predict.html', context=value)
 
 

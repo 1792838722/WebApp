@@ -1,20 +1,17 @@
 from django.db import models
-from django.utils import timezone
 from .get_time import get_time
-from .validator import validate_file_extension
 import os
-from django.conf import settings
-from django.contrib.staticfiles.storage import staticfiles_storage
 
 
 # Create your models here.
 
 def upload_to(instance, filename):
-    return os.path.join('patient', get_time(), instance.name, instance.name)
+    return os.path.join('patient', get_time(), instance.patient_name, instance.name)
 
 
 class Medical(models.Model):
     name = models.CharField(max_length=100)
+    patient_name = models.CharField(max_length=100)
     date = models.DateField(auto_now_add=True)
     id = models.AutoField(primary_key=True)
 
@@ -25,4 +22,4 @@ class Medical(models.Model):
     tar_img = models.ImageField(default='null')
 
     def __str__(self):
-        return f'{self.name}'
+        return f'{self.patient_name}'

@@ -23,6 +23,6 @@ urlpatterns = [
     path('intro', views.Intro.as_view(), name='intro'),
     re_path(r'^search', views.Search.as_view(), name='search'),
     re_path(r'^history$', views.History.as_view(), name='history'),
-    path('history/<str:str_id>', views.Detail.as_view(), name='detail'),
+    path('history/<int:pk>', views.Detail.as_view(), name='detail'),
     # url 表待改
 ]

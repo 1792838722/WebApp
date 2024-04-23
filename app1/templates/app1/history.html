@@ -48,7 +48,7 @@
      </div>
      <div class="search" style="margin-left:500px;margin-top:30px;">
          <form action="{% url 'search' %}">
-             <input type="text" name="tags" style="width:500px;">
+             {{ form.as_p }}
              <input type="submit" name="submit">
          </form>
      </div>
@@ -75,7 +75,7 @@
                      <th data-field="name" scope="row">{{ each_patient.patient_name }}</th>
                      <td data-field="date">{{ each_patient.date }}</td>
                      <td class="table-info" data-field="info">
-                                <a href="history/{{ each_patient.patient_name }}_{{ each_patient.id }}">detail</a>
+                                <a href="{{ each_patient.get_absolute_url }}">detail</a>
                      </td>
                  </tr>
                  {% endfor %}

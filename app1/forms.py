@@ -1,13 +1,10 @@
-from django.forms import ModelForm
-from django.core.validators import FileExtensionValidator
 from django import forms
+from django.core.validators import FileExtensionValidator
 from .models import *
 from datetime import date
-from .exercise import test_out, Show_result
-import os
 
 
-class UploadForm(ModelForm):
+class UploadForm(forms.ModelForm):
     class Meta:
         model = Medical
         fields = ['raw_file']
@@ -37,3 +34,15 @@ class UploadForm(ModelForm):
         if commit:
             instance.save()
         return instance
+
+
+class SearchForm(forms.Form):
+    patient_name = forms.CharField(
+        max_length=100,
+        required=True,
+        label='name',
+        error_messages={
+            'required': 'required!',
+            'max_length': 'max_length!',
+        }
+    )
